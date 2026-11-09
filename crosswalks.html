@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CGROM Crosswalk Explorer</title>
+<meta name="description" content="Filter the CGROM regulatory crosswalks by framework or rule, and see which requirements two or more regimes have in common. 134 mappings across 17 sources, free and open under CC BY 4.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+:root{
+  --paper:#F4F6FA; --surface:#FFFFFF; --ink:#1A2233; --muted:#566178;
+  --rule:#D5DCE7; --navy:#1F3864; --steel:#2E5B8A; --blue:#2E74B5;
+  --focus:#2E74B5; --track:#E5EAF2; --band:#1F3864; --band-ink:#FFFFFF;
+  --band-muted:#C9D6EC; --chip:#EEF2F8;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:"Source Serif 4","Times New Roman",Times,serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1420; --surface:#161F31; --ink:#E6EBF3; --muted:#9AA6BA;
+    --rule:#2A3650; --navy:#A9C1EA; --steel:#8FB0DF; --blue:#8FB6E8;
+    --focus:#A9C1EA; --track:#22304A; --band:#121B2C; --band-ink:#FFFFFF;
+    --band-muted:#9AB0D6; --chip:#1D283D; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1420; --surface:#161F31; --ink:#E6EBF3; --muted:#9AA6BA;
+  --rule:#2A3650; --navy:#A9C1EA; --steel:#8FB0DF; --blue:#8FB6E8;
+  --focus:#A9C1EA; --track:#22304A; --band:#121B2C; --band-ink:#FFFFFF;
+  --band-muted:#9AB0D6; --chip:#1D283D; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper); color:var(--ink); font-family:var(--sans);
+  font-size:15px; line-height:1.55; -webkit-text-size-adjust:100%}
+.band{background:var(--band); color:var(--band-ink)}
+.in{max-width:1100px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band .in{padding-block:30px 26px}
+h1{font-family:var(--serif); font-size:clamp(25px,4vw,34px); line-height:1.15;
+  font-weight:700; margin:0 0 8px; text-wrap:balance}
+.lede{color:var(--band-muted); margin:0; max-width:64ch; font-size:14.5px}
+.counts{display:flex; flex-wrap:wrap; gap:6px 22px; margin:16px 0 0;
+  padding:0; list-style:none}
+.counts li{font-size:13px; color:var(--band-muted)}
+.counts b{color:var(--band-ink); font-weight:700}
+
+main{padding-block:26px 50px}
+.panel{background:var(--surface); border:1px solid var(--rule);
+  border-radius:7px; padding:18px 18px 16px; margin-bottom:20px}
+.lbl{font-size:11.5px; font-weight:700; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 9px}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 4px; padding:0;
+  list-style:none}
+.chip{font:inherit; font-size:12.5px; line-height:1.3; cursor:pointer;
+  background:var(--chip); color:var(--ink); border:1px solid transparent;
+  border-radius:20px; padding:6px 12px}
+.chip[aria-pressed="true"]{background:var(--navy); color:var(--surface);
+  border-color:var(--navy); font-weight:600}
+.chip:focus-visible, .lnk:focus-visible, input:focus-visible,
+button:focus-visible{outline:2px solid var(--focus); outline-offset:2px}
+.row{display:flex; flex-wrap:wrap; gap:12px; align-items:center;
+  margin-top:14px}
+input[type="search"]{font:inherit; font-size:14px; flex:1 1 240px;
+  min-width:0; padding:9px 12px; border:1px solid var(--rule);
+  border-radius:5px; background:var(--paper); color:var(--ink)}
+.toggle{display:inline-flex; align-items:center; gap:7px; font-size:13.5px;
+  color:var(--muted); cursor:pointer}
+.btn{font:inherit; font-size:13px; cursor:pointer; background:transparent;
+  color:var(--blue); border:1px solid var(--rule); border-radius:5px;
+  padding:8px 13px; font-weight:600}
+
+.status{font-size:13.5px; color:var(--muted); margin:0 0 12px}
+.status b{color:var(--ink)}
+.overlap{background:var(--chip); border-left:3px solid var(--steel);
+  border-radius:5px; padding:13px 15px; margin:0 0 18px}
+.overlap p{margin:0 0 7px; font-size:13.5px}
+.overlap ul{margin:0; padding-left:19px; font-size:13.5px}
+.overlap li{margin-bottom:3px}
+
+.grp{margin-bottom:22px}
+.grp h2{font-family:var(--serif); font-size:17.5px; font-weight:700;
+  margin:0 0 3px; color:var(--navy)}
+.grp .sec{font-size:12px; color:var(--muted); margin:0 0 9px}
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:6px;
+  background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:520px}
+th,td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--rule)}
+th{background:var(--chip); font-size:11.5px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--muted); font-weight:700;
+  position:sticky; top:0}
+tr:last-child td{border-bottom:0}
+td.ref{white-space:nowrap; color:var(--muted); font-variant-numeric:tabular-nums}
+mark{background:#FFE9A8; color:#1A2233; border-radius:2px; padding:0 1px}
+.empty{padding:26px 4px; color:var(--muted); font-size:14px}
+
+footer{border-top:1px solid var(--rule); margin-top:34px; padding-top:18px;
+  font-size:12.5px; color:var(--muted)}
+footer p{margin:0 0 8px; max-width:74ch}
+.lnk{color:var(--blue)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="in">
+    <h1>CGROM Crosswalk Explorer</h1>
+    <p class="lede">Pick the frameworks and rules you have to satisfy and see which CGROM mechanism delivers each requirement. Pick two or more and the page shows the mechanisms they have in common, which is the work you do once to serve several regimes.</p>
+    <ul class="counts">
+      <li><b id="cSrc">0</b> sources</li>
+      <li><b id="cMap">0</b> mappings</li>
+      <li>CGROM Open Edition v2.0</li>
+      <li>CC BY 4.0</li>
+    </ul>
+  </div>
+</header>
+
+<main class="in">
+  <section class="panel">
+    <p class="lbl" id="srcLbl">Frameworks and rules</p>
+    <ul class="chips" id="chips" aria-labelledby="srcLbl"></ul>
+    <div class="row">
+      <input type="search" id="q" placeholder="Search a requirement or a mechanism, for example M5 or incident" aria-label="Search requirements and mechanisms">
+      <label class="toggle"><input type="checkbox" id="byMech"> Group by CGROM mechanism</label>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+  </section>
+
+  <p class="status" id="status"></p>
+  <div id="overlap"></div>
+  <div id="out"></div>
+
+  <footer>
+    <p><b>This is an orientation aid, not a legal interpretation,</b> and not an exhaustive mapping of either side. Applicability varies by entity type, sector, state and contract. Status statements reflect public sources as of September 2026, and several instruments are in motion: the SEC items have been under rescission pressure since May 2025, the CIRCIA final rule is unpublished, the proposed HIPAA Security Rule update is not final, and NAIC Model 668 is adopted state by state. Read the current text of a rule before relying on any row.</p>
+    <p>Data: <a class="lnk" href="data/crosswalks.csv">crosswalks.csv</a> · <a class="lnk" href="data/crosswalks.json">crosswalks.json</a> · <a class="lnk" href="data/README.md">field dictionary</a>. Self-assessment: <a class="lnk" href="./">Governance Snapshot</a>.</p>
+    <p>From the CGROM Open Edition by Thiago Oliveira Lima, licensed under CC BY 4.0. Version 2.0, DOI <a class="lnk" href="https://doi.org/10.6084/m9.figshare.34045599">10.6084/m9.figshare.34045599</a>, building on version 1.0, DOI <a class="lnk" href="https://doi.org/10.6084/m9.figshare.33963217">10.6084/m9.figshare.33963217</a>.</p>
+  </footer>
+</main>
+
+<script>
+const DATA = {
+  "name": "CGROM regulatory and framework crosswalks",
+  "edition": "CGROM Open Edition v2.0",
+  "doi": "10.6084/m9.figshare.34045599",
+  "builds_on": {
+    "edition": "CGROM Open Edition v1.0",
+    "doi": "10.6084/m9.figshare.33963217"
+  },
+  "author": "Thiago Oliveira Lima",
+  "license": "CC BY 4.0",
+  "status_as_of": "September 2026",
+  "disclaimer": "Orientation aid, not a legal interpretation, and not an exhaustive mapping of either source. Applicability varies by entity type, sector, state and contract. Several of the instruments mapped here are subject to change; confirm the current text before relying on any row.",
+  "source_section": "Section 14 of the CGROM Open Edition v2.0",
+  "crosswalks": [
+    {
+      "section": "14.2",
+      "source": "NIST Cybersecurity Framework 2.0",
+      "requirement_columns": [
+        "CSF 2.0 category"
+      ],
+      "cgrom_column": "CGROM element that delivers it",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "GV.OC Organizational Context",
+          "cgrom_element": "Critical service designation; business impact analysis; requirements register"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "GV.RM Risk Management Strategy",
+          "cgrom_element": "M2 risk taxonomy and scale; risk appetite statement, section 6.5"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "GV.RR Roles, Responsibilities and Authorities",
+          "cgrom_element": "M1 accountable owner; segregation of duties in the Governance pillar"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "GV.PO Policy",
+          "cgrom_element": "M7 policy architecture and exception management"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "GV.OV Oversight",
+          "cgrom_element": "M4 Executive Technology Forum; M5 annual cyber risk report; section 7.4 board view"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "GV.SC Cybersecurity Supply Chain Risk Management",
+          "cgrom_element": "M6 third party tiering; section 8 in full, including fourth party and concentration"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "ID.AM Asset Management",
+          "cgrom_element": "Asset and configuration management capability domain; indicator C11"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "ID.RA Risk Assessment",
+          "cgrom_element": "Section 6 assessment method; M3 register integration"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "ID.IM Improvement",
+          "cgrom_element": "DMAIC-Evolve, particularly the Control and Evolve stages; post incident review"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "PR.AA Identity Management, Authentication and Access Control",
+          "cgrom_element": "Identity and access management capability domain; indicators C7 to C9"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "PR.AT Awareness and Training",
+          "cgrom_element": "Awareness and culture capability domain; indicator C12"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "PR.DS Data Security",
+          "cgrom_element": "Data protection capability domain; data as a governed asset, principle 4"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "PR.PS Platform Security",
+          "cgrom_element": "Vulnerability and patch management; secure development and change"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "PR.IR Technology Infrastructure Resilience",
+          "cgrom_element": "Operational resilience pillar; section 9"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "DE.CM Continuous Monitoring",
+          "cgrom_element": "Security monitoring and detection; indicators C4 and C5"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "DE.AE Adverse Event Analysis",
+          "cgrom_element": "Threat intelligence; detection engineering; M9 severity classification"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "RS.MA, RS.AN, RS.CO, RS.MI Incident Management, Analysis, Communication and Mitigation",
+          "cgrom_element": "M9 incident governance; section 10; crisis management in 9.5"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "RC.RP, RC.CO Incident Recovery Plan Execution and Communication",
+          "cgrom_element": "Recovery objectives and testing ladder, sections 9.2 and 9.3"
+        }
+      ]
+    },
+    {
+      "section": "14.3",
+      "source": "NIST SP 800-53 Rev. 5, selected families",
+      "requirement_columns": [
+        "Control family"
+      ],
+      "cgrom_column": "CGROM element",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "PM Program Management",
+          "cgrom_element": "M1, M4, M5 and M7 together constitute the programme management layer"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "RA Risk Assessment",
+          "cgrom_element": "Section 6 in full; M2 and M3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CA Assessment, Authorization and Monitoring",
+          "cgrom_element": "M8 control evidence and audit readiness; indicator K1"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "IR Incident Response",
+          "cgrom_element": "M9; section 10; aligned to SP 800-61 Rev. 3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CP Contingency Planning",
+          "cgrom_element": "Section 9, resilience in depth"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "SR Supply Chain Risk Management",
+          "cgrom_element": "M6 and section 8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "AU Audit and Accountability",
+          "cgrom_element": "Evidence management; privileged activity logging in the Governance pillar"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "AC and IA Access Control and Identification and Authentication",
+          "cgrom_element": "Identity and access management capability domain"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "SI System and Information Integrity",
+          "cgrom_element": "Vulnerability and patch management; monitoring and detection"
+        }
+      ]
+    },
+    {
+      "section": "14.4",
+      "source": "NIST SP 800-61 Revision 3, April 2025",
+      "requirement_columns": [
+        "Revision 3 emphasis"
+      ],
+      "cgrom_column": "CGROM element",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Incident response governed rather than only executed, with leadership accountability",
+          "cgrom_element": "M1 accountable owner; M4 Forum; M9 incident governance"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Integration with the CSF 2.0 functions rather than a standalone lifecycle",
+          "cgrom_element": "The pillars and mechanisms are already organized around CSF 2.0 outcomes, see 14.2"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Continuous improvement driven by lessons learned",
+          "cgrom_element": "Post incident review, section 10.4, feeding the Evolve stage"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Preparation treated as an ongoing capability rather than a phase",
+          "cgrom_element": "Testing ladder and scenario library, sections 9.3 and 9.4; rehearsal of the determination process"
+        }
+      ]
+    },
+    {
+      "section": "14.5",
+      "source": "ISO/IEC 27001:2022",
+      "requirement_columns": [
+        "Clause or theme"
+      ],
+      "cgrom_column": "CGROM element",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 5.1 and 5.3, leadership and roles",
+          "cgrom_element": "M1 accountable owner with a written mandate"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 5.2, policy",
+          "cgrom_element": "M7 policy architecture"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 6.1.2 and 6.1.3, risk assessment and treatment",
+          "cgrom_element": "Section 6, including anchors, modifiers and treatment thresholds"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 7.5, documented information",
+          "cgrom_element": "M8 evidence management, with locations and retention"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 8, operation",
+          "cgrom_element": "The five pillars and their capability domains"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 9.1, monitoring and measurement",
+          "cgrom_element": "Section 7 indicator catalogue with tolerances"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 9.2, internal audit",
+          "cgrom_element": "M8; findings tracker with the common risk scale"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 9.3, management review",
+          "cgrom_element": "M4 Forum; M5 annual report"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Clause 10, improvement",
+          "cgrom_element": "DMAIC-Evolve"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Annex A theme 5, organizational controls",
+          "cgrom_element": "Governance and Compliance pillars; M6 and M7"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Annex A theme 6, people controls",
+          "cgrom_element": "Awareness and culture; personnel controls in third party clauses"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Annex A theme 7, physical controls",
+          "cgrom_element": "Referenced through the asset inventory and business impact analysis; not expanded in this edition"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Annex A theme 8, technological controls",
+          "cgrom_element": "Cybersecurity pillar capability domains"
+        }
+      ]
+    },
+    {
+      "section": "14.6",
+      "source": "COBIT 2019, selected objectives",
+      "requirement_columns": [
+        "Objective"
+      ],
+      "cgrom_column": "CGROM element",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "EDM01 Ensured governance framework setting and maintenance",
+          "cgrom_element": "M1, M4 and M7"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "EDM03 Ensured risk optimization",
+          "cgrom_element": "M2, M3 and the appetite statement"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "APO12 Managed risk",
+          "cgrom_element": "Section 6; M3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "APO13 Managed security",
+          "cgrom_element": "Cybersecurity pillar"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "APO10 Managed vendors",
+          "cgrom_element": "M6 and section 8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "DSS02 and DSS03 Managed service requests and incidents and problems",
+          "cgrom_element": "M9 and incident response execution"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "DSS04 Managed continuity",
+          "cgrom_element": "Section 9"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "DSS05 Managed security services",
+          "cgrom_element": "Monitoring, detection and identity domains"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "MEA01 and MEA03 Managed performance and compliance",
+          "cgrom_element": "Section 7 indicators; M8 and the Compliance pillar"
+        }
+      ]
+    },
+    {
+      "section": "14.7",
+      "source": "CIS Controls v8.1",
+      "requirement_columns": [
+        "Implementation group"
+      ],
+      "cgrom_column": "Positioning within CGROM",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "IG1, essential cyber hygiene",
+          "cgrom_element": "The minimum control expectation for any organization reaching maturity Level 2. The mechanisms decide who owns the gaps and when they close"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "IG2",
+          "cgrom_element": "Appropriate for most mid sized regulated organizations and for Tier 1 vendors to regulated institutions, aligning with maturity Level 3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "IG3",
+          "cgrom_element": "Appropriate where regulated data is held at scale or where the organization is itself critical infrastructure, aligning with maturity Level 4 and above"
+        }
+      ]
+    },
+    {
+      "section": "14.8",
+      "source": "FTC Safeguards Rule, 16 C.F.R. Part 314",
+      "requirement_columns": [
+        "Requirement, 16 C.F.R. 314.4"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "(a) Designate a Qualified Individual",
+          "cgrom_element": "M1 accountable owner"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(b) Written risk assessment with stated criteria",
+          "cgrom_element": "Section 6, anchors, modifiers and thresholds; M2 and M3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(c) Design and implement safeguards, including the enumerated elements",
+          "cgrom_element": "Cybersecurity pillar capability domains"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(d) Regularly test or monitor safeguards, including continuous monitoring or periodic penetration testing and vulnerability assessment",
+          "cgrom_element": "Monitoring and vulnerability domains; indicators C1 to C4; M8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(e) Implement policies and procedures for personnel, including training",
+          "cgrom_element": "M7 policy architecture; awareness and culture domain"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(f) Oversee service providers",
+          "cgrom_element": "M6 and section 8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(g) Evaluate and adjust the programme",
+          "cgrom_element": "Evolve stage; re assessment in section 12.3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(h) Written incident response plan",
+          "cgrom_element": "M9; sections 9 and 10"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(i) Written report to the board or governing body at least annually",
+          "cgrom_element": "M5 annual cyber risk report; M4 Forum"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "(j) and 314.5 Notification to the Commission",
+          "cgrom_element": "Reporting clock inventory, section 10.3; determination process, section 10.2"
+        }
+      ]
+    },
+    {
+      "section": "14.9",
+      "source": "SEC Regulation S-K Item 106 and Form 8-K Item 1.05",
+      "requirement_columns": [
+        "Disclosure requirement"
+      ],
+      "cgrom_column": "CGROM mechanism that produces the underlying process",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Item 106(b), processes for assessing, identifying and managing material cybersecurity risks",
+          "cgrom_element": "Section 6 assessment method; DMAIC-Evolve; M2"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Item 106(b)(1)(ii), integration into overall risk management",
+          "cgrom_element": "M3 register integration"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Item 106(b)(1)(iii), use of assessors, consultants and auditors, and oversight of third party risk",
+          "cgrom_element": "M6 tiering; section 8; M8 assurance review"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Item 106(c)(1), board oversight",
+          "cgrom_element": "M5 annual report; M4 Forum reporting to the governing body; section 7.4 board view"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Item 106(c)(2), management's role and relevant expertise",
+          "cgrom_element": "M1 mandate and reporting line; Forum membership"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Form 8-K Item 1.05, material incident disclosure within four business days of the materiality determination",
+          "cgrom_element": "M9 determination process, section 10.2, with timestamped records"
+        }
+      ]
+    },
+    {
+      "section": "14.10",
+      "source": "SEC Regulation S-P, as amended in 2024",
+      "requirement_columns": [
+        "Requirement"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Incident response programme reasonably designed to detect, respond to and recover from unauthorized access to or use of customer information",
+          "cgrom_element": "M9; incident response execution domain; section 9"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Service provider oversight, including notification arrangements",
+          "cgrom_element": "M6 and the contract clause checklist, section 8.3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Customer notification as soon as practicable and no later than 30 days after becoming aware, subject to the rule's conditions",
+          "cgrom_element": "Reporting clock inventory; determination process, section 10.2"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Recordkeeping of the programme and of notifications",
+          "cgrom_element": "M8 evidence management with defined retention"
+        }
+      ]
+    },
+    {
+      "section": "14.11",
+      "source": "NYDFS 23 NYCRR Part 500",
+      "requirement_columns": [
+        "Section",
+        "Requirement in outline"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "500.3",
+          "requirement": "Written cybersecurity policy approved by the governing body or a senior officer",
+          "cgrom_element": "M7 policy architecture"
+        },
+        {
+          "requirement_ref": "500.4",
+          "requirement": "Chief information security officer, reporting, and governing body oversight",
+          "cgrom_element": "M1 accountable owner; M4 Forum; M5 annual report"
+        },
+        {
+          "requirement_ref": "500.5",
+          "requirement": "Vulnerability management, including penetration testing and automated scanning",
+          "cgrom_element": "Vulnerability and patch management domain; indicators C1 to C3"
+        },
+        {
+          "requirement_ref": "500.7",
+          "requirement": "Access privileges and management, including privileged access review",
+          "cgrom_element": "Identity and access management domain; C7 and C8"
+        },
+        {
+          "requirement_ref": "500.9",
+          "requirement": "Risk assessment, updated as reasonably necessary",
+          "cgrom_element": "Section 6; M2 and M3"
+        },
+        {
+          "requirement_ref": "500.11",
+          "requirement": "Third party service provider security policy",
+          "cgrom_element": "M6; section 8, including clauses and reassessment"
+        },
+        {
+          "requirement_ref": "500.12",
+          "requirement": "Multi factor authentication",
+          "cgrom_element": "Identity domain; indicator C9"
+        },
+        {
+          "requirement_ref": "500.13",
+          "requirement": "Asset management and data retention",
+          "cgrom_element": "Asset inventory; data protection domain"
+        },
+        {
+          "requirement_ref": "500.14",
+          "requirement": "Monitoring and training, including endpoint detection and response where applicable",
+          "cgrom_element": "Monitoring domain; awareness and culture domain"
+        },
+        {
+          "requirement_ref": "500.16",
+          "requirement": "Incident response and business continuity, with testing",
+          "cgrom_element": "M9; sections 9.3 and 9.4"
+        },
+        {
+          "requirement_ref": "500.17",
+          "requirement": "Notice to the superintendent, and the annual certification or acknowledgement",
+          "cgrom_element": "Section 10.3 clock inventory; M5 and M8 evidence"
+        }
+      ]
+    },
+    {
+      "section": "14.12",
+      "source": "NAIC Insurance Data Security Model Law 668 and state adoptions",
+      "requirement_columns": [
+        "Requirement area, Model section 4"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Written information security programme based on a risk assessment, proportionate to size and complexity",
+          "cgrom_element": "The five pillars; section 6 assessment method"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Designation of responsibility for the programme",
+          "cgrom_element": "M1 accountable owner"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Risk assessment covering threats, likelihood and the sufficiency of controls",
+          "cgrom_element": "Section 6, including anchors and modifiers"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Risk management, including the enumerated security measures",
+          "cgrom_element": "Cybersecurity pillar capability domains"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Oversight by the board of directors",
+          "cgrom_element": "M4 Forum; M5 annual report to the governing body"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Oversight of third party service provider arrangements",
+          "cgrom_element": "M6; section 8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Programme adjustment in light of changes",
+          "cgrom_element": "Evolve stage; requirements register currency, indicator K2"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Incident response plan",
+          "cgrom_element": "M9; section 9"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Investigation of a cybersecurity event, and notification to the commissioner",
+          "cgrom_element": "Section 10.2 determination process; section 10.3 clock inventory"
+        }
+      ]
+    },
+    {
+      "section": "14.13",
+      "source": "HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",
+      "requirement_columns": [
+        "Requirement"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(1) Security management process, including risk analysis and risk management",
+          "cgrom_element": "Section 6; M2 and M3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(2) Assigned security responsibility",
+          "cgrom_element": "M1"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(3) and (4) Workforce security and information access management",
+          "cgrom_element": "Identity and access management domain"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(5) Security awareness and training",
+          "cgrom_element": "Awareness and culture domain; indicator C12"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(6) Security incident procedures",
+          "cgrom_element": "M9; section 10"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(7) Contingency plan, including testing and revision",
+          "cgrom_element": "Section 9, including the testing ladder"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(a)(8) Evaluation",
+          "cgrom_element": "M8; Evolve stage"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.308(b) Business associate contracts and other arrangements",
+          "cgrom_element": "M6; contract clause checklist"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.316 Policies, procedures and documentation, with six year retention",
+          "cgrom_element": "M7; M8 evidence retention rules"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "164.400 to 414 Breach notification",
+          "cgrom_element": "Section 10.2 and 10.3"
+        }
+      ]
+    },
+    {
+      "section": "14.14",
+      "source": "CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",
+      "requirement_columns": [
+        "Element"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "System security plan and scoping of the assessment boundary",
+          "cgrom_element": "Critical service designation; asset inventory; requirements register"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Risk assessment and remediation planning",
+          "cgrom_element": "Section 6; prioritized gap list from the Analyze stage"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Continuous monitoring and assessment evidence",
+          "cgrom_element": "Section 7 indicators; M8 evidence artifacts"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Incident reporting to the Department of Defense within 72 hours",
+          "cgrom_element": "Section 10.3 clock inventory; M9 determination process"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Flow down of requirements to subcontractors",
+          "cgrom_element": "M6 tiering; contract clause checklist; subcontractor disclosure"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Affirmation of continuing compliance",
+          "cgrom_element": "M5 annual report; M8 readiness rehearsal"
+        }
+      ]
+    },
+    {
+      "section": "14.15",
+      "source": "CIRCIA",
+      "requirement_columns": [
+        "Anticipated obligation"
+      ],
+      "cgrom_column": "What to prepare now",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Determination of whether an incident is a covered cyber incident",
+          "cgrom_element": "Extend the section 10.2 determination process with a placeholder branch, so the analysis is already rehearsed"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "72 hour reporting clock",
+          "cgrom_element": "Confirm that severity classification triggers legal involvement fast enough to make a 72 hour clock achievable"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "24 hour ransom payment reporting",
+          "cgrom_element": "Establish in advance who may authorize a payment and that the authorization record captures the time"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Data preservation requirements",
+          "cgrom_element": "Confirm that evidence handling and retention in the incident process would satisfy a preservation duty"
+        }
+      ]
+    },
+    {
+      "section": "14.16",
+      "source": "PCI DSS v4.0.1, governance requirements",
+      "requirement_columns": [
+        "Requirement area"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Requirement 12, information security policies and programmes, including a formal risk assessment and an incident response plan",
+          "cgrom_element": "M7; section 6; M9"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Requirement 12.8 and 12.9, third party service provider management and acknowledgements",
+          "cgrom_element": "M6; contract clause checklist"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Requirement 12.10, incident response and testing",
+          "cgrom_element": "M9; testing ladder"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Targeted risk analyses for customized approach and for certain frequencies",
+          "cgrom_element": "Section 6, with documented assumptions and review dates"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Evidence for the annual assessment",
+          "cgrom_element": "M8 evidence management and readiness rehearsal"
+        }
+      ]
+    },
+    {
+      "section": "14.17",
+      "source": "SOC 2 Trust Services Criteria",
+      "requirement_columns": [
+        "Criteria area"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "CC1, control environment, including board oversight and accountability",
+          "cgrom_element": "M1; M4; M5"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CC2, communication and information",
+          "cgrom_element": "M7; section 7 reporting"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CC3, risk assessment",
+          "cgrom_element": "Section 6; M3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CC4, monitoring activities",
+          "cgrom_element": "Section 7 indicators; M8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CC5, control activities",
+          "cgrom_element": "Pillar capability domains"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CC6 to CC8, logical access, operations and change management",
+          "cgrom_element": "Identity, monitoring, vulnerability and secure change domains"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "CC9, risk mitigation, including vendor management",
+          "cgrom_element": "M6; section 8"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Availability criteria",
+          "cgrom_element": "Section 9, resilience"
+        }
+      ]
+    },
+    {
+      "section": "14.18",
+      "source": "State privacy statutes and the reasonable security duty",
+      "requirement_columns": [
+        "Common obligation"
+      ],
+      "cgrom_column": "CGROM mechanism",
+      "mappings": [
+        {
+          "requirement_ref": "",
+          "requirement": "Reasonable security appropriate to the data",
+          "cgrom_element": "Data classification driving control selection; section 6 modifiers for regulated data"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Processor and service provider contract requirements",
+          "cgrom_element": "M6; contract clause checklist, section 8.3"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Data protection assessments for higher risk processing",
+          "cgrom_element": "M10 classification for artificial intelligence and automated decisions; register entry with a business owner"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Data minimization, retention and deletion",
+          "cgrom_element": "Data protection domain; retention rules in M8; deletion evidence in third party exit"
+        },
+        {
+          "requirement_ref": "",
+          "requirement": "Demonstrability on request",
+          "cgrom_element": "M8 evidence management and the readiness service level"
+        }
+      ]
+    }
+  ]
+};
+
+const CW = DATA.crosswalks;
+const ALL = [];
+CW.forEach(function (s) {
+  s.mappings.forEach(function (m) {
+    ALL.push({ section: s.section, source: s.source,
+               ref: m.requirement_ref || "", req: m.requirement,
+               cg: m.cgrom_element });
+  });
+});
+
+document.getElementById("cSrc").textContent = CW.length;
+document.getElementById("cMap").textContent = ALL.length;
+
+const sel = new Set();
+const chips = document.getElementById("chips");
+CW.forEach(function (s) {
+  const li = document.createElement("li");
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "chip"; b.textContent = shortName(s.source);
+  b.title = s.source; b.setAttribute("aria-pressed", "false");
+  b.addEventListener("click", function () {
+    if (sel.has(s.section)) { sel.delete(s.section); }
+    else { sel.add(s.section); }
+    b.setAttribute("aria-pressed", sel.has(s.section) ? "true" : "false");
+    render();
+  });
+  li.appendChild(b); chips.appendChild(li);
+});
+
+function shortName(n) {
+  return n
+    .replace("NIST Cybersecurity Framework 2.0", "NIST CSF 2.0")
+    .replace(", selected families", "").replace(", selected objectives", "")
+    .replace(", governance requirements", "")
+    .replace("SEC Regulation S-K Item 106 and Form 8-K Item 1.05", "SEC Item 106 and 8-K 1.05")
+    .replace("NAIC Insurance Data Security Model Law 668 and state adoptions", "NAIC Model 668")
+    .replace("HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C", "HIPAA Security Rule")
+    .replace("FTC Safeguards Rule, 16 C.F.R. Part 314", "FTC Safeguards Rule")
+    .replace("CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3", "CMMC and SP 800-171")
+    .replace("State privacy statutes and the reasonable security duty", "State privacy statutes")
+    .replace("SEC Regulation S-P, as amended in 2024", "SEC Regulation S-P")
+    .replace("NYDFS 23 NYCRR Part 500", "NYDFS Part 500")
+    .replace("ISO/IEC 27001:2022", "ISO/IEC 27001")
+    .replace("NIST SP 800-61 Revision 3, April 2025", "NIST SP 800-61 Rev. 3")
+    .replace("SOC 2 Trust Services Criteria", "SOC 2");
+}
+
+const qEl = document.getElementById("q");
+const mechEl = document.getElementById("byMech");
+qEl.addEventListener("input", render);
+mechEl.addEventListener("change", render);
+document.getElementById("clear").addEventListener("click", function () {
+  sel.clear(); qEl.value = ""; mechEl.checked = false;
+  chips.querySelectorAll(".chip").forEach(function (c) {
+    c.setAttribute("aria-pressed", "false");
+  });
+  render();
+});
+
+function esc(s) {
+  return String(s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+function hi(s, q) {
+  const t = esc(s);
+  if (!q) { return t; }
+  const rx = new RegExp("(" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig");
+  return t.replace(rx, "<mark>$1</mark>");
+}
+function mechsOf(txt) {
+  const out = (txt.match(/\bM(10|[1-9])\b/g) || []);
+  return Array.from(new Set(out));
+}
+
+function render() {
+  const q = qEl.value.trim();
+  const ql = q.toLowerCase();
+  let rows = ALL.filter(function (r) {
+    if (sel.size && !sel.has(r.section)) { return false; }
+    if (!ql) { return true; }
+    return (r.req + " " + r.cg + " " + r.ref).toLowerCase().indexOf(ql) >= 0;
+  });
+
+  const status = document.getElementById("status");
+  status.innerHTML = "<b>" + rows.length + "</b> mapping" +
+    (rows.length === 1 ? "" : "s") +
+    (sel.size ? " across <b>" + sel.size + "</b> selected source" +
+      (sel.size === 1 ? "" : "s") : " across all " + CW.length + " sources") +
+    (q ? ", matching “" + esc(q) + "”" : "") + ".";
+
+  renderOverlap(rows);
+
+  const out = document.getElementById("out");
+  out.innerHTML = "";
+  if (!rows.length) {
+    out.innerHTML = '<p class="empty">Nothing matches that combination. Clear the search or pick another source.</p>';
+    return;
+  }
+  if (mechEl.checked) { renderByMech(rows, q, out); }
+  else { renderBySource(rows, q, out); }
+}
+
+function renderOverlap(rows) {
+  const box = document.getElementById("overlap");
+  box.innerHTML = "";
+  if (sel.size < 2) { return; }
+  const bySrc = {};
+  rows.forEach(function (r) {
+    (bySrc[r.section] = bySrc[r.section] || new Set());
+    mechsOf(r.cg).forEach(function (m) { bySrc[r.section].add(m); });
+  });
+  const keys = Object.keys(bySrc);
+  if (keys.length < 2) { return; }
+  let common = null;
+  keys.forEach(function (k) {
+    if (common === null) { common = new Set(bySrc[k]); }
+    else { common = new Set(Array.from(common).filter(function (m) { return bySrc[k].has(m); })); }
+  });
+  const list = Array.from(common).sort(function (a, b) {
+    return parseInt(a.slice(1), 10) - parseInt(b.slice(1), 10);
+  });
+  const names = keys.map(function (k) {
+    return shortName(CW.filter(function (s) { return s.section === k; })[0].source);
+  });
+  const d = document.createElement("div");
+  d.className = "overlap";
+  if (!list.length) {
+    d.innerHTML = "<p>No single mechanism appears in every one of the selected sources. " +
+      "Look at the tables below for the mechanisms each one needs on its own.</p>";
+  } else {
+    d.innerHTML = "<p><b>Shared by " + esc(names.join(", ")) + ":</b> " +
+      "these mechanisms appear in every source you selected, so implementing each one serves all of them.</p><ul>" +
+      list.map(function (m) { return "<li>" + m + " " + esc(MECH[m] || "") + "</li>"; }).join("") +
+      "</ul>";
+  }
+  box.appendChild(d);
+}
+
+const MECH = {
+  M1: "accountable owner",
+  M2: "risk taxonomy and scale",
+  M3: "integration with the corporate risk register",
+  M4: "Executive Technology Forum",
+  M5: "annual cyber risk report",
+  M6: "third party tiering",
+  M7: "policy architecture and exceptions",
+  M8: "control evidence and audit readiness",
+  M9: "incident governance and materiality",
+  M10: "artificial intelligence governance"
+};
+
+function table(rows, q, showSource) {
+  const anyRef = rows.some(function (r) { return r.ref; });
+  let h = '<div class="tw"><table><thead><tr>';
+  if (showSource) { h += "<th>Source</th>"; }
+  if (anyRef) { h += "<th>Ref.</th>"; }
+  h += "<th>Requirement</th><th>CGROM element</th></tr></thead><tbody>";
+  rows.forEach(function (r) {
+    h += "<tr>";
+    if (showSource) { h += "<td>" + esc(shortName(r.source)) + "</td>"; }
+    if (anyRef) { h += '<td class="ref">' + hi(r.ref, q) + "</td>"; }
+    h += "<td>" + hi(r.req, q) + "</td><td>" + hi(r.cg, q) + "</td></tr>";
+  });
+  return h + "</tbody></table></div>";
+}
+
+function renderBySource(rows, q, out) {
+  const order = [];
+  const by = {};
+  rows.forEach(function (r) {
+    if (!by[r.section]) { by[r.section] = []; order.push(r.section); }
+    by[r.section].push(r);
+  });
+  order.forEach(function (sec) {
+    const src = CW.filter(function (s) { return s.section === sec; })[0];
+    const d = document.createElement("section");
+    d.className = "grp";
+    d.innerHTML = "<h2>" + esc(src.source) + "</h2>" +
+      '<p class="sec">Section ' + esc(sec) + " of the Open Edition v2.0 · " +
+      by[sec].length + " mapping" + (by[sec].length === 1 ? "" : "s") + "</p>" +
+      table(by[sec], q, false);
+    out.appendChild(d);
+  });
+}
+
+function renderByMech(rows, q, out) {
+  const by = {};
+  rows.forEach(function (r) {
+    const ms = mechsOf(r.cg);
+    if (!ms.length) { (by.other = by.other || []).push(r); return; }
+    ms.forEach(function (m) { (by[m] = by[m] || []).push(r); });
+  });
+  const keys = Object.keys(by).filter(function (k) { return k !== "other"; })
+    .sort(function (a, b) { return parseInt(a.slice(1), 10) - parseInt(b.slice(1), 10); });
+  if (by.other) { keys.push("other"); }
+  keys.forEach(function (k) {
+    const d = document.createElement("section");
+    d.className = "grp";
+    const title = k === "other" ? "Delivered by sections and capabilities rather than a numbered mechanism"
+      : k + " " + (MECH[k] || "");
+    d.innerHTML = "<h2>" + esc(title) + "</h2>" +
+      '<p class="sec">' + by[k].length + " requirement" +
+      (by[k].length === 1 ? "" : "s") + " across " +
+      new Set(by[k].map(function (r) { return r.section; })).size + " source" +
+      (new Set(by[k].map(function (r) { return r.section; })).size === 1 ? "" : "s") + "</p>" +
+      table(by[k], q, true);
+    out.appendChild(d);
+  });
+}
+
+render();
+</script>
+</body>
+</html>
