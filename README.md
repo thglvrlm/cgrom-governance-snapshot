@@ -21,6 +21,10 @@ v2.0 builds on v1.0 and does not replace it. The fifteen statements in this tool
 
 CGROM, the Cyber Governance and Risk Operating Model, is an integration layer rather than a replacement for existing frameworks. NIST CSF 2.0, ISO/IEC 27001 and COBIT define what to achieve. CGROM defines how to operate: governance mechanisms, indicators and an implementation sequence that turn technical security findings into risk decisions leadership can govern and auditors can verify.
 
+## Crosswalks as data
+
+The regulatory and framework crosswalks from the Open Edition are also published here in machine readable form, so they can be used inside other tools instead of read in a PDF: 134 mappings across 17 sources, in [`data/`](data/). See [data/README.md](data/README.md) for the field dictionary and the limits of use.
+
 ## Running it
 
 Download `index.html` and open it in any browser. There is no build step and no dependency.

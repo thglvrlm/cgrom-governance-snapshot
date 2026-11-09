@@ -1,0 +1,135 @@
+section,source,requirement_ref,requirement,cgrom_element
+14.2,NIST Cybersecurity Framework 2.0,,GV.OC Organizational Context,Critical service designation; business impact analysis; requirements register
+14.2,NIST Cybersecurity Framework 2.0,,GV.RM Risk Management Strategy,"M2 risk taxonomy and scale; risk appetite statement, section 6.5"
+14.2,NIST Cybersecurity Framework 2.0,,"GV.RR Roles, Responsibilities and Authorities",M1 accountable owner; segregation of duties in the Governance pillar
+14.2,NIST Cybersecurity Framework 2.0,,GV.PO Policy,M7 policy architecture and exception management
+14.2,NIST Cybersecurity Framework 2.0,,GV.OV Oversight,M4 Executive Technology Forum; M5 annual cyber risk report; section 7.4 board view
+14.2,NIST Cybersecurity Framework 2.0,,GV.SC Cybersecurity Supply Chain Risk Management,"M6 third party tiering; section 8 in full, including fourth party and concentration"
+14.2,NIST Cybersecurity Framework 2.0,,ID.AM Asset Management,Asset and configuration management capability domain; indicator C11
+14.2,NIST Cybersecurity Framework 2.0,,ID.RA Risk Assessment,Section 6 assessment method; M3 register integration
+14.2,NIST Cybersecurity Framework 2.0,,ID.IM Improvement,"DMAIC-Evolve, particularly the Control and Evolve stages; post incident review"
+14.2,NIST Cybersecurity Framework 2.0,,"PR.AA Identity Management, Authentication and Access Control",Identity and access management capability domain; indicators C7 to C9
+14.2,NIST Cybersecurity Framework 2.0,,PR.AT Awareness and Training,Awareness and culture capability domain; indicator C12
+14.2,NIST Cybersecurity Framework 2.0,,PR.DS Data Security,"Data protection capability domain; data as a governed asset, principle 4"
+14.2,NIST Cybersecurity Framework 2.0,,PR.PS Platform Security,Vulnerability and patch management; secure development and change
+14.2,NIST Cybersecurity Framework 2.0,,PR.IR Technology Infrastructure Resilience,Operational resilience pillar; section 9
+14.2,NIST Cybersecurity Framework 2.0,,DE.CM Continuous Monitoring,Security monitoring and detection; indicators C4 and C5
+14.2,NIST Cybersecurity Framework 2.0,,DE.AE Adverse Event Analysis,Threat intelligence; detection engineering; M9 severity classification
+14.2,NIST Cybersecurity Framework 2.0,,"RS.MA, RS.AN, RS.CO, RS.MI Incident Management, Analysis, Communication and Mitigation",M9 incident governance; section 10; crisis management in 9.5
+14.2,NIST Cybersecurity Framework 2.0,,"RC.RP, RC.CO Incident Recovery Plan Execution and Communication","Recovery objectives and testing ladder, sections 9.2 and 9.3"
+14.3,"NIST SP 800-53 Rev. 5, selected families",,PM Program Management,"M1, M4, M5 and M7 together constitute the programme management layer"
+14.3,"NIST SP 800-53 Rev. 5, selected families",,RA Risk Assessment,Section 6 in full; M2 and M3
+14.3,"NIST SP 800-53 Rev. 5, selected families",,"CA Assessment, Authorization and Monitoring",M8 control evidence and audit readiness; indicator K1
+14.3,"NIST SP 800-53 Rev. 5, selected families",,IR Incident Response,M9; section 10; aligned to SP 800-61 Rev. 3
+14.3,"NIST SP 800-53 Rev. 5, selected families",,CP Contingency Planning,"Section 9, resilience in depth"
+14.3,"NIST SP 800-53 Rev. 5, selected families",,SR Supply Chain Risk Management,M6 and section 8
+14.3,"NIST SP 800-53 Rev. 5, selected families",,AU Audit and Accountability,Evidence management; privileged activity logging in the Governance pillar
+14.3,"NIST SP 800-53 Rev. 5, selected families",,AC and IA Access Control and Identification and Authentication,Identity and access management capability domain
+14.3,"NIST SP 800-53 Rev. 5, selected families",,SI System and Information Integrity,Vulnerability and patch management; monitoring and detection
+14.4,"NIST SP 800-61 Revision 3, April 2025",,"Incident response governed rather than only executed, with leadership accountability",M1 accountable owner; M4 Forum; M9 incident governance
+14.4,"NIST SP 800-61 Revision 3, April 2025",,Integration with the CSF 2.0 functions rather than a standalone lifecycle,"The pillars and mechanisms are already organized around CSF 2.0 outcomes, see 14.2"
+14.4,"NIST SP 800-61 Revision 3, April 2025",,Continuous improvement driven by lessons learned,"Post incident review, section 10.4, feeding the Evolve stage"
+14.4,"NIST SP 800-61 Revision 3, April 2025",,Preparation treated as an ongoing capability rather than a phase,"Testing ladder and scenario library, sections 9.3 and 9.4; rehearsal of the determination process"
+14.5,ISO/IEC 27001:2022,,"Clause 5.1 and 5.3, leadership and roles",M1 accountable owner with a written mandate
+14.5,ISO/IEC 27001:2022,,"Clause 5.2, policy",M7 policy architecture
+14.5,ISO/IEC 27001:2022,,"Clause 6.1.2 and 6.1.3, risk assessment and treatment","Section 6, including anchors, modifiers and treatment thresholds"
+14.5,ISO/IEC 27001:2022,,"Clause 7.5, documented information","M8 evidence management, with locations and retention"
+14.5,ISO/IEC 27001:2022,,"Clause 8, operation",The five pillars and their capability domains
+14.5,ISO/IEC 27001:2022,,"Clause 9.1, monitoring and measurement",Section 7 indicator catalogue with tolerances
+14.5,ISO/IEC 27001:2022,,"Clause 9.2, internal audit",M8; findings tracker with the common risk scale
+14.5,ISO/IEC 27001:2022,,"Clause 9.3, management review",M4 Forum; M5 annual report
+14.5,ISO/IEC 27001:2022,,"Clause 10, improvement",DMAIC-Evolve
+14.5,ISO/IEC 27001:2022,,"Annex A theme 5, organizational controls",Governance and Compliance pillars; M6 and M7
+14.5,ISO/IEC 27001:2022,,"Annex A theme 6, people controls",Awareness and culture; personnel controls in third party clauses
+14.5,ISO/IEC 27001:2022,,"Annex A theme 7, physical controls",Referenced through the asset inventory and business impact analysis; not expanded in this edition
+14.5,ISO/IEC 27001:2022,,"Annex A theme 8, technological controls",Cybersecurity pillar capability domains
+14.6,"COBIT 2019, selected objectives",,EDM01 Ensured governance framework setting and maintenance,"M1, M4 and M7"
+14.6,"COBIT 2019, selected objectives",,EDM03 Ensured risk optimization,"M2, M3 and the appetite statement"
+14.6,"COBIT 2019, selected objectives",,APO12 Managed risk,Section 6; M3
+14.6,"COBIT 2019, selected objectives",,APO13 Managed security,Cybersecurity pillar
+14.6,"COBIT 2019, selected objectives",,APO10 Managed vendors,M6 and section 8
+14.6,"COBIT 2019, selected objectives",,DSS02 and DSS03 Managed service requests and incidents and problems,M9 and incident response execution
+14.6,"COBIT 2019, selected objectives",,DSS04 Managed continuity,Section 9
+14.6,"COBIT 2019, selected objectives",,DSS05 Managed security services,"Monitoring, detection and identity domains"
+14.6,"COBIT 2019, selected objectives",,MEA01 and MEA03 Managed performance and compliance,Section 7 indicators; M8 and the Compliance pillar
+14.7,CIS Controls v8.1,,"IG1, essential cyber hygiene",The minimum control expectation for any organization reaching maturity Level 2. The mechanisms decide who owns the gaps and when they close
+14.7,CIS Controls v8.1,,IG2,"Appropriate for most mid sized regulated organizations and for Tier 1 vendors to regulated institutions, aligning with maturity Level 3"
+14.7,CIS Controls v8.1,,IG3,"Appropriate where regulated data is held at scale or where the organization is itself critical infrastructure, aligning with maturity Level 4 and above"
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(a) Designate a Qualified Individual,M1 accountable owner
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(b) Written risk assessment with stated criteria,"Section 6, anchors, modifiers and thresholds; M2 and M3"
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,"(c) Design and implement safeguards, including the enumerated elements",Cybersecurity pillar capability domains
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,"(d) Regularly test or monitor safeguards, including continuous monitoring or periodic penetration testing and vulnerability assessment",Monitoring and vulnerability domains; indicators C1 to C4; M8
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,"(e) Implement policies and procedures for personnel, including training",M7 policy architecture; awareness and culture domain
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(f) Oversee service providers,M6 and section 8
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(g) Evaluate and adjust the programme,Evolve stage; re assessment in section 12.3
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(h) Written incident response plan,M9; sections 9 and 10
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(i) Written report to the board or governing body at least annually,M5 annual cyber risk report; M4 Forum
+14.8,"FTC Safeguards Rule, 16 C.F.R. Part 314",,(j) and 314.5 Notification to the Commission,"Reporting clock inventory, section 10.3; determination process, section 10.2"
+14.9,SEC Regulation S-K Item 106 and Form 8-K Item 1.05,,"Item 106(b), processes for assessing, identifying and managing material cybersecurity risks",Section 6 assessment method; DMAIC-Evolve; M2
+14.9,SEC Regulation S-K Item 106 and Form 8-K Item 1.05,,"Item 106(b)(1)(ii), integration into overall risk management",M3 register integration
+14.9,SEC Regulation S-K Item 106 and Form 8-K Item 1.05,,"Item 106(b)(1)(iii), use of assessors, consultants and auditors, and oversight of third party risk",M6 tiering; section 8; M8 assurance review
+14.9,SEC Regulation S-K Item 106 and Form 8-K Item 1.05,,"Item 106(c)(1), board oversight",M5 annual report; M4 Forum reporting to the governing body; section 7.4 board view
+14.9,SEC Regulation S-K Item 106 and Form 8-K Item 1.05,,"Item 106(c)(2), management's role and relevant expertise",M1 mandate and reporting line; Forum membership
+14.9,SEC Regulation S-K Item 106 and Form 8-K Item 1.05,,"Form 8-K Item 1.05, material incident disclosure within four business days of the materiality determination","M9 determination process, section 10.2, with timestamped records"
+14.10,"SEC Regulation S-P, as amended in 2024",,"Incident response programme reasonably designed to detect, respond to and recover from unauthorized access to or use of customer information",M9; incident response execution domain; section 9
+14.10,"SEC Regulation S-P, as amended in 2024",,"Service provider oversight, including notification arrangements","M6 and the contract clause checklist, section 8.3"
+14.10,"SEC Regulation S-P, as amended in 2024",,"Customer notification as soon as practicable and no later than 30 days after becoming aware, subject to the rule's conditions","Reporting clock inventory; determination process, section 10.2"
+14.10,"SEC Regulation S-P, as amended in 2024",,Recordkeeping of the programme and of notifications,M8 evidence management with defined retention
+14.11,NYDFS 23 NYCRR Part 500,500.3,Written cybersecurity policy approved by the governing body or a senior officer,M7 policy architecture
+14.11,NYDFS 23 NYCRR Part 500,500.4,"Chief information security officer, reporting, and governing body oversight",M1 accountable owner; M4 Forum; M5 annual report
+14.11,NYDFS 23 NYCRR Part 500,500.5,"Vulnerability management, including penetration testing and automated scanning",Vulnerability and patch management domain; indicators C1 to C3
+14.11,NYDFS 23 NYCRR Part 500,500.7,"Access privileges and management, including privileged access review",Identity and access management domain; C7 and C8
+14.11,NYDFS 23 NYCRR Part 500,500.9,"Risk assessment, updated as reasonably necessary",Section 6; M2 and M3
+14.11,NYDFS 23 NYCRR Part 500,500.11,Third party service provider security policy,"M6; section 8, including clauses and reassessment"
+14.11,NYDFS 23 NYCRR Part 500,500.12,Multi factor authentication,Identity domain; indicator C9
+14.11,NYDFS 23 NYCRR Part 500,500.13,Asset management and data retention,Asset inventory; data protection domain
+14.11,NYDFS 23 NYCRR Part 500,500.14,"Monitoring and training, including endpoint detection and response where applicable",Monitoring domain; awareness and culture domain
+14.11,NYDFS 23 NYCRR Part 500,500.16,"Incident response and business continuity, with testing",M9; sections 9.3 and 9.4
+14.11,NYDFS 23 NYCRR Part 500,500.17,"Notice to the superintendent, and the annual certification or acknowledgement",Section 10.3 clock inventory; M5 and M8 evidence
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,"Written information security programme based on a risk assessment, proportionate to size and complexity",The five pillars; section 6 assessment method
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,Designation of responsibility for the programme,M1 accountable owner
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,"Risk assessment covering threats, likelihood and the sufficiency of controls","Section 6, including anchors and modifiers"
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,"Risk management, including the enumerated security measures",Cybersecurity pillar capability domains
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,Oversight by the board of directors,M4 Forum; M5 annual report to the governing body
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,Oversight of third party service provider arrangements,M6; section 8
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,Programme adjustment in light of changes,"Evolve stage; requirements register currency, indicator K2"
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,Incident response plan,M9; section 9
+14.12,NAIC Insurance Data Security Model Law 668 and state adoptions,,"Investigation of a cybersecurity event, and notification to the commissioner",Section 10.2 determination process; section 10.3 clock inventory
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,"164.308(a)(1) Security management process, including risk analysis and risk management",Section 6; M2 and M3
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.308(a)(2) Assigned security responsibility,M1
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.308(a)(3) and (4) Workforce security and information access management,Identity and access management domain
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.308(a)(5) Security awareness and training,Awareness and culture domain; indicator C12
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.308(a)(6) Security incident procedures,M9; section 10
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,"164.308(a)(7) Contingency plan, including testing and revision","Section 9, including the testing ladder"
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.308(a)(8) Evaluation,M8; Evolve stage
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.308(b) Business associate contracts and other arrangements,M6; contract clause checklist
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,"164.316 Policies, procedures and documentation, with six year retention",M7; M8 evidence retention rules
+14.13,"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C",,164.400 to 414 Breach notification,Section 10.2 and 10.3
+14.14,"CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",,System security plan and scoping of the assessment boundary,Critical service designation; asset inventory; requirements register
+14.14,"CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",,Risk assessment and remediation planning,Section 6; prioritized gap list from the Analyze stage
+14.14,"CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",,Continuous monitoring and assessment evidence,Section 7 indicators; M8 evidence artifacts
+14.14,"CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",,Incident reporting to the Department of Defense within 72 hours,Section 10.3 clock inventory; M9 determination process
+14.14,"CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",,Flow down of requirements to subcontractors,M6 tiering; contract clause checklist; subcontractor disclosure
+14.14,"CMMC, 32 C.F.R. Part 170, and NIST SP 800-171 Rev. 3",,Affirmation of continuing compliance,M5 annual report; M8 readiness rehearsal
+14.15,CIRCIA,,Determination of whether an incident is a covered cyber incident,"Extend the section 10.2 determination process with a placeholder branch, so the analysis is already rehearsed"
+14.15,CIRCIA,,72 hour reporting clock,Confirm that severity classification triggers legal involvement fast enough to make a 72 hour clock achievable
+14.15,CIRCIA,,24 hour ransom payment reporting,Establish in advance who may authorize a payment and that the authorization record captures the time
+14.15,CIRCIA,,Data preservation requirements,Confirm that evidence handling and retention in the incident process would satisfy a preservation duty
+14.16,"PCI DSS v4.0.1, governance requirements",,"Requirement 12, information security policies and programmes, including a formal risk assessment and an incident response plan",M7; section 6; M9
+14.16,"PCI DSS v4.0.1, governance requirements",,"Requirement 12.8 and 12.9, third party service provider management and acknowledgements",M6; contract clause checklist
+14.16,"PCI DSS v4.0.1, governance requirements",,"Requirement 12.10, incident response and testing",M9; testing ladder
+14.16,"PCI DSS v4.0.1, governance requirements",,Targeted risk analyses for customized approach and for certain frequencies,"Section 6, with documented assumptions and review dates"
+14.16,"PCI DSS v4.0.1, governance requirements",,Evidence for the annual assessment,M8 evidence management and readiness rehearsal
+14.17,SOC 2 Trust Services Criteria,,"CC1, control environment, including board oversight and accountability",M1; M4; M5
+14.17,SOC 2 Trust Services Criteria,,"CC2, communication and information",M7; section 7 reporting
+14.17,SOC 2 Trust Services Criteria,,"CC3, risk assessment",Section 6; M3
+14.17,SOC 2 Trust Services Criteria,,"CC4, monitoring activities",Section 7 indicators; M8
+14.17,SOC 2 Trust Services Criteria,,"CC5, control activities",Pillar capability domains
+14.17,SOC 2 Trust Services Criteria,,"CC6 to CC8, logical access, operations and change management","Identity, monitoring, vulnerability and secure change domains"
+14.17,SOC 2 Trust Services Criteria,,"CC9, risk mitigation, including vendor management",M6; section 8
+14.17,SOC 2 Trust Services Criteria,,Availability criteria,"Section 9, resilience"
+14.18,State privacy statutes and the reasonable security duty,,Reasonable security appropriate to the data,Data classification driving control selection; section 6 modifiers for regulated data
+14.18,State privacy statutes and the reasonable security duty,,Processor and service provider contract requirements,"M6; contract clause checklist, section 8.3"
+14.18,State privacy statutes and the reasonable security duty,,Data protection assessments for higher risk processing,M10 classification for artificial intelligence and automated decisions; register entry with a business owner
+14.18,State privacy statutes and the reasonable security duty,,"Data minimization, retention and deletion",Data protection domain; retention rules in M8; deletion evidence in third party exit
+14.18,State privacy statutes and the reasonable security duty,,Demonstrability on request,M8 evidence management and the readiness service level

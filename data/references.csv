@@ -1,0 +1,20 @@
+reference,nature,depth_of_mapping_in_v2_0
+"NIST CSF 2.0, CSWP 29, February 2024",Voluntary framework,"All six functions, at category level"
+NIST SP 800-53 Rev. 5,Control catalogue,Selected control families most relevant to the mechanisms
+"NIST SP 800-61 Rev. 3, April 2025",Incident response guidance,Mapped to incident governance
+NIST AI RMF 1.0,Artificial intelligence risk framework,"Four functions, mapped in section 11.2"
+"NIST SP 800-171 Rev. 3 and CMMC, 32 C.F.R. Part 170",Defense contracting requirement,Governance elements only
+ISO/IEC 27001:2022 and 27002:2022,Certifiable standard,Management system clauses and Annex A themes
+ISO/IEC 42001:2023,Artificial intelligence management system standard,Referenced in section 11
+COBIT 2019,Governance framework,Selected objectives across four domains
+CIS Controls v8.1,Prioritized safeguards,Implementation group positioning
+"FTC Safeguards Rule, 16 C.F.R. Part 314","Regulation, in effect",Full mapping of 314.4
+SEC Reg S-K Item 106 and Form 8-K Item 1.05,"Regulation, in effect, under amendment pressure",Disclosure topics mapped to producing mechanisms
+"SEC Regulation S-P, as amended 2024","Regulation, in effect",Incident response and notification elements
+NYDFS 23 NYCRR Part 500,"Regulation, in effect as amended",Principal sections mapped
+NAIC Model 668 and state adoptions,"Model law, adopted state by state",Section 4 programme requirements
+"HIPAA Security Rule, 45 C.F.R. Part 164 Subpart C","Regulation, in effect; proposed update not final",Administrative safeguards emphasis
+CIRCIA,"Statute, final rule pending",Anticipated obligations only
+PCI DSS v4.0.1,Contractual standard,Governance requirements only
+SOC 2 Trust Services Criteria,Attestation criteria,Common criteria alignment
+State privacy statutes,"Regulation, varies",Reasonable security duty and vendor obligations
