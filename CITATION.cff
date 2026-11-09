@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: CGROM Governance Snapshot
+message: If you use this tool, please cite the CGROM Open Edition.
+type: software
+authors:
+  - family-names: Oliveira Lima
+    given-names: Thiago
+license: CC-BY-4.0
+references:
+  - type: report
+    title: "CGROM Open Edition v1.0: Cyber Governance and Risk Operating Model"
+    authors:
+      - family-names: Oliveira Lima
+        given-names: Thiago
+    doi: 10.6084/m9.figshare.33963217
+    year: 2026
+  - type: report
+    title: "CGROM Open Edition v2.0: Cyber Governance and Risk Operating Model"
+    authors:
+      - family-names: Oliveira Lima
+        given-names: Thiago
+    doi: 10.6084/m9.figshare.34045599
+    year: 2026
