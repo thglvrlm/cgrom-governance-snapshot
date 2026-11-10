@@ -7,6 +7,8 @@ The regulatory and framework crosswalks from Section 14 of the CGROM Open Editio
 
 Generated from the source that produced the published document, so the rows are identical to the PDF.
 
+Published as a citable dataset: DOI [10.6084/m9.figshare.34963048](https://doi.org/10.6084/m9.figshare.34963048).
+
 ## Files
 
 | File | What it holds |
@@ -35,4 +37,4 @@ An orientation aid, not a legal interpretation, and not an exhaustive mapping of
 
 ## Citation
 
-> CGROM regulatory and framework crosswalks, from the CGROM Open Edition v2.0 by Thiago Oliveira Lima, licensed under CC BY 4.0. DOI [10.6084/m9.figshare.34045599](https://doi.org/10.6084/m9.figshare.34045599), building on v1.0, DOI [10.6084/m9.figshare.33963217](https://doi.org/10.6084/m9.figshare.33963217).
+> CGROM Regulatory and Framework Crosswalks by Thiago Oliveira Lima, DOI [10.6084/m9.figshare.34963048](https://doi.org/10.6084/m9.figshare.34963048), licensed under CC BY 4.0. Derived from the CGROM Open Edition v2.0. DOI [10.6084/m9.figshare.34045599](https://doi.org/10.6084/m9.figshare.34045599), building on v1.0, DOI [10.6084/m9.figshare.33963217](https://doi.org/10.6084/m9.figshare.33963217).

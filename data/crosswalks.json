@@ -1,7 +1,8 @@
 {
   "name": "CGROM regulatory and framework crosswalks",
+  "dataset_doi": "10.6084/m9.figshare.34963048",
+  "dataset_url": "https://doi.org/10.6084/m9.figshare.34963048",
   "edition": "CGROM Open Edition v2.0",
-  "doi": "10.6084/m9.figshare.34045599",
   "builds_on": {
     "edition": "CGROM Open Edition v1.0",
     "doi": "10.6084/m9.figshare.33963217"
@@ -853,5 +854,6 @@
         }
       ]
     }
-  ]
+  ],
+  "derived_from": "10.6084/m9.figshare.34045599"
 }

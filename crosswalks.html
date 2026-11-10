@@ -137,7 +137,7 @@ footer p{margin:0 0 8px; max-width:74ch}
 
   <footer>
     <p><b>This is an orientation aid, not a legal interpretation,</b> and not an exhaustive mapping of either side. Applicability varies by entity type, sector, state and contract. Status statements reflect public sources as of September 2026, and several instruments are in motion: the SEC items have been under rescission pressure since May 2025, the CIRCIA final rule is unpublished, the proposed HIPAA Security Rule update is not final, and NAIC Model 668 is adopted state by state. Read the current text of a rule before relying on any row.</p>
-    <p>Data: <a class="lnk" href="data/crosswalks.csv">crosswalks.csv</a> · <a class="lnk" href="data/crosswalks.json">crosswalks.json</a> · <a class="lnk" href="data/README.md">field dictionary</a>. Self-assessment: <a class="lnk" href="./">Governance Snapshot</a>.</p>
+    <p>Dataset DOI <a class="lnk" href="https://doi.org/10.6084/m9.figshare.34963048">10.6084/m9.figshare.34963048</a>. Files: <a class="lnk" href="data/crosswalks.csv">crosswalks.csv</a> · <a class="lnk" href="data/crosswalks.json">crosswalks.json</a> · <a class="lnk" href="data/README.md">field dictionary</a>. Self-assessment: <a class="lnk" href="./">Governance Snapshot</a>.</p>
     <p>From the CGROM Open Edition by Thiago Oliveira Lima, licensed under CC BY 4.0. Version 2.0, DOI <a class="lnk" href="https://doi.org/10.6084/m9.figshare.34045599">10.6084/m9.figshare.34045599</a>, building on version 1.0, DOI <a class="lnk" href="https://doi.org/10.6084/m9.figshare.33963217">10.6084/m9.figshare.33963217</a>.</p>
   </footer>
 </main>
@@ -145,8 +145,9 @@ footer p{margin:0 0 8px; max-width:74ch}
 <script>
 const DATA = {
   "name": "CGROM regulatory and framework crosswalks",
+  "dataset_doi": "10.6084/m9.figshare.34963048",
+  "dataset_url": "https://doi.org/10.6084/m9.figshare.34963048",
   "edition": "CGROM Open Edition v2.0",
-  "doi": "10.6084/m9.figshare.34045599",
   "builds_on": {
     "edition": "CGROM Open Edition v1.0",
     "doi": "10.6084/m9.figshare.33963217"
@@ -998,7 +999,8 @@ const DATA = {
         }
       ]
     }
-  ]
+  ],
+  "derived_from": "10.6084/m9.figshare.34045599"
 };
 
 const CW = DATA.crosswalks;

@@ -23,7 +23,7 @@ CGROM, the Cyber Governance and Risk Operating Model, is an integration layer ra
 
 ## Crosswalks as data
 
-The regulatory and framework crosswalks from the Open Edition are also published here in machine readable form, so they can be used inside other tools instead of read in a PDF: 134 mappings across 17 sources, in [`data/`](data/). See [data/README.md](data/README.md) for the field dictionary and the limits of use.
+The regulatory and framework crosswalks from the Open Edition are also published here in machine readable form, so they can be used inside other tools instead of read in a PDF: 134 mappings across 17 sources, in [`data/`](data/), also published as a citable dataset under DOI [10.6084/m9.figshare.34963048](https://doi.org/10.6084/m9.figshare.34963048). See [data/README.md](data/README.md) for the field dictionary and the limits of use.
 
 `crosswalks.html` is a browsable view of the same data: pick the frameworks and rules you have to satisfy, search the requirements, group them by CGROM mechanism, and, when you select two or more regimes, see the mechanisms they have in common. That overlap is the work you do once to serve several of them.
 
